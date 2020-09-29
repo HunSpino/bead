@@ -27,27 +27,15 @@ namespace HarcosProjekt
 
         public string Nev
         {
-            get
-            {
-                return nev;
-            }
+            get {return nev;}
         }
         public int Szint
         {
             get
-            {
-                return szint;
-            }
+            {return szint;}
             set
             {
-                if (value>=0)
-                {
-                    szint = value;
-                }
-                else
-                {
-                    szint = 0;
-                }
+                value=1;
             }
         }
         public int Eletero
@@ -56,17 +44,7 @@ namespace HarcosProjekt
             {
                 return eletero;
             }
-            set
-            {
-                if (value >= 0)
-                {
-                    eletero = value;
-                }
-                else
-                {
-                    eletero = 0;
-                }
-            }
+            
         }
         public int Tapasztalat
         {
@@ -76,14 +54,7 @@ namespace HarcosProjekt
             }
             set
             {
-                if (value >= 0)
-                {
-                    tapasztalat = value;
-                }
-                else
-                {
-                    tapasztalat = 0;
-                }
+                value = 0;
             }
         }
         public int AlapEletero
@@ -105,10 +76,31 @@ namespace HarcosProjekt
         {
             get
             {
+                return alapSebzes+szint;
+            }
+        }
+        public int SzintLepeshez
+        {
+            get { return 10+szint * 5; }
+        }
 
+        public int MaxEletero
+        {
+            get
+            {
+                return alapEletero+szint*3;
             }
         }
 
+        public void Megkuzd(Harcos masikHarcos)
+        {
 
+          
+        }
+        public void Gyogyul()
+        {
+
+        }
     }
+
 }
