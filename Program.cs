@@ -3,15 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace HarcosProjekt
 {
     class Program
     {
-        static void Main(string[] args)
+        private static List<Harcos> harcosok = new List<Harcos>();
+        public static void Beolvasas()
+        {
+            StreamReader r = new StreamReader("harcosok 1.csv");
+            while (!r.EndOfStream)
+            {
+                string sor = r.ReadLine();
+                string[] a = sor.Split(';');
+                Harcos h = new Harcos(a[0], int.Parse(a[1]));
+                harcosok.Add(h);
+
+            }
+            r.Close();
+        }
+
+        public static void Kiiratas()
         {
 
-            Console.WriteLine();
+
+            for (int i = 0; i < harcosok.Count; i++)
+            {
+                Console.WriteLine(i + 1 + ".Játékos\n" + harcosok[i]);
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Harcos h = new Harcos("Revan", 10);
+            Console.WriteLine(h);
             Console.ReadKey();
         }
     }

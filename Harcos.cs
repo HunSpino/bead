@@ -44,7 +44,7 @@ namespace HarcosProjekt
             {
                 if (value>szint+1)
                 {
-                    value = szint;
+                    value = szint+1;
                 }
                 szint = value;
             }
@@ -63,7 +63,6 @@ namespace HarcosProjekt
                     Tapasztalat = value - SzintLepeshez;
                     Eletero = MaxEletero;
                 }
-
             }
         }
         public int Eletero 
