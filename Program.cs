@@ -37,7 +37,17 @@ namespace HarcosProjekt
         static void Main(string[] args)
         {
             Harcos h = new Harcos("Revan", 10);
-            Console.WriteLine(h);
+            harcosok.Add(h);
+            Beolvasas();
+            Console.WriteLine("Adja meg a karakter nevét!: ");
+            string ign = Console.ReadLine();
+            Console.WriteLine("Kérem adja meg a karakter kasztját!: ");
+            int kaszt = int.Parse(Console.ReadLine());
+
+            Harcos N = new Harcos(ign, kaszt);
+
+
+
             Console.ReadKey();
         }
     }
