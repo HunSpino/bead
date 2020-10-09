@@ -11,6 +11,8 @@ namespace HarcosProjekt
         static void Main(string[] args)
         {
 
+            Console.WriteLine();
+            Console.ReadKey();
         }
     }
 }

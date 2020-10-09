@@ -15,91 +15,148 @@ namespace HarcosProjekt
         private int alapEletero;
         private int alapSebzes;
 
-        public Harcos(string nev, int szint, int tapasztalat, int eletero, int alapEletero, int alapSebzes)
+        public Harcos(string nev,int ertekAlapsablon)
         {
             this.nev = nev;
-            this.szint = szint;
-            this.tapasztalat = tapasztalat;
-            this.eletero = eletero;
-            this.alapEletero = alapEletero;
-            this.alapSebzes = alapSebzes;
-        }
+            this.szint = 1;
+            this.Tapasztalat = 0;
 
+            switch (ertekAlapsablon)
+            {
+                case 1: this.alapEletero = 15;this.alapSebzes = 3;break;
+                case 2: this.alapEletero = 12; this.alapSebzes = 4; break;
+                case 3: this.alapEletero = 8; this.alapSebzes = 5; break;
+
+                default:this.alapEletero = 15; this.alapSebzes = 3;break;
+            }
+            this.eletero = alapEletero;
+
+        }
         public string Nev
         {
-            get {return nev;}
+            get => nev;
+            set => nev = value;
         }
         public int Szint
         {
-            get
-            {return szint;}
+            get => szint;
             set
             {
-                value=1;
+                if (value>szint+1)
+                {
+                    value = szint;
+                }
+                szint = value;
             }
         }
-        public int Eletero
-        {
-            get
-            {
-                return eletero;
-            }
-            
-        }
+        
         public int Tapasztalat
         {
-            get
-            {
-                return tapasztalat;
-            }
+            get => tapasztalat;
+
             set
             {
-                value = 0;
+
+                if (value > SzintLepeshez)
+                {
+                    Szint++;
+                    Tapasztalat = value - SzintLepeshez;
+                    Eletero = MaxEletero;
+                }
+
             }
         }
-        public int AlapEletero
-        {
-            get
+        public int Eletero 
+        { 
+            get => eletero;
+            set
             {
-                return alapEletero;
+                if (value == 0)
+                {
+                    Tapasztalat = 0;
+                }
+                if (value > MaxEletero)
+                {
+                    value = MaxEletero;
+                }
+                if (value < 0)
+                {
+                    value = 0;
+                }
+                Eletero = value;
             }
-            
         }
-        public int AlapSebzes
-        {
-            get
-            {
-                return alapSebzes;
-            }
+        public int AlapEletero 
+        { 
+            get => alapEletero; 
+        }
+        public int AlapSebzes 
+        { 
+            get => alapSebzes; 
         }
         public int Sebzes
         {
             get
             {
-                return alapSebzes+szint;
+                return alapSebzes + szint;
             }
         }
         public int SzintLepeshez
         {
-            get { return 10+szint * 5; }
+            get
+            {
+                return 10 + szint * 5;
+            }
         }
 
         public int MaxEletero
         {
             get
             {
-                return alapEletero+szint*3;
+                var s = alapEletero + (szint * 3);
+                return s;
             }
         }
-
-        public void Megkuzd(Harcos masikHarcos)
+        public void Megkuzd(Harcos egyik, Harcos masik)
         {
+            if (egyik.Nev == masik.Nev)
+            {
+                Console.WriteLine("A nevek ne egyezzenek meg,válassz másik nevet");
+            }
+            else if (egyik.Eletero == 0 || masik.Eletero == 0)
+            {
+                Console.WriteLine("A küzdelem véget ért");
+            }
+            else
+            {
+                masik.eletero -= egyik.Sebzes;
+                if (masik.eletero > 0)
+                {
+                    egyik.tapasztalat += 5;
+                    masik.tapasztalat += 5;
+                }
+                else
+                {
+                    egyik.tapasztalat += 5;
+                }
+            }
 
-          
         }
         public void Gyogyul()
         {
-
+            if (this.Eletero < 1)
+            {
+                Eletero = MaxEletero;
+            }
+            else
+            {
+                Eletero = 3 + szint;
+            }
+        }
+        public override string ToString()
+        {
+            string st = string.Format("Név: {0}\t Szint:{1}\t EXP: {2}/{3}\t Életerő:{4}/{5}\t Sebzés: {6}", this.nev, this.szint, this.tapasztalat, SzintLepeshez, this.eletero, this.MaxEletero, this.Sebzes);
+            return st;
         }
     }
 
